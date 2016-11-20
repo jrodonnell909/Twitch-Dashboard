@@ -1,0 +1,37 @@
+===============================================================
+= *                 Twitch API App Components               * =
+===============================================================
+
+= Model Components
+    = Follow Data
+    = User Data
+    
+= View Components
+    = List View
+        * Nav Bar
+        * Follow List
+    = Connect to Twitch View
+
+= Controller Components
+    = On-Events
+        * List type buttons
+    = Page Refresher
+    
+    
+$scope.go = function(path) {
+    $location.path(path);
+}
+
+home depot
+ndd systems
+nebo agency
+gourmet foods international
+bluepoint solutions
+
+
+Request Order
+=============
+1. Resolve initial request for user follows list.
+2. Recursively resolve for the rest of user follows.
+3. Put all of the display names in a giant string.
+3. Request the stream status of every user in the string by combining it with the proper URL
