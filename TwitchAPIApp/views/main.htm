@@ -4,10 +4,11 @@
 
 <table>
     <tr ng-repeat="x in follows | orderBy : 'stream' : true">
-        <td> {{ x.stream ? "[O]" : "[X]" }}
-        <td> <img ng-src="{{ x.channel.logo || './resources/images/no_image_available.png' }}" alt="N/A" width="64px" height="64px"> <td>
-        <td> {{ x.channel.display_name }} </td>
-        <td> {{ x.channel.game || "N/A" }} </td>
-        <td> {{ x.channel.status || "N/A" }} </td>
+        <td>{{ $index + 1 }}</td>
+        <td>{{ x.stream ? "[O]" : "[X]" }}</td>
+        <td><img ng-src="{{ x.channel.logo || './resources/images/no_image_available.png' }}" alt="N/A" width="64px" height="64px"></td>
+        <td>{{ x.channel.display_name }}</td>
+        <td>{{ x.channel.game || "N/A" }}</td>
+        <td>{{ x.channel.status || "N/A" }}</td>
     </tr>
 </table>

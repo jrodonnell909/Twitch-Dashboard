@@ -30,6 +30,25 @@ app.config(function ($routeProvider) {
 //
 //
 
+app.run(function($location) {
+    // Initialize Twitch SDK
+    Twitch.init( { clientId: Window.CLIENT_ID }, function(error, status) {
+        if (status.authenticated) {
+            $location.path('/');
+        }
+        else {
+            $location.path('/login');
+        }
+    });
+});
+
+//
+//
+//
+//
+//
+//
+
 app.controller("mainCtrl", function($scope, TwitchService) {
     $scope.follows = null;
     TwitchService.getChannelData()
@@ -38,7 +57,19 @@ app.controller("mainCtrl", function($scope, TwitchService) {
         }).catch(function() {
             $scope.error = 'Unable to get stream data.';
         });
-    //$scope.onlineStatus = 
+});
+
+//
+//
+//
+//
+//
+//
+
+app.controller("loginCtrl", function($scope, $location, TwitchAuthentication) {
+    $scope.login = function login() {
+        TwitchAuthentication.login();
+    }
 });
 
 // app.factory
@@ -171,4 +202,41 @@ app.factory('TwitchService', function($q, $http) {
     return {
         getChannelData: getChannelData
     }
+});
+
+//
+//
+//
+//
+//
+//
+
+app.factory('TwitchAuthentication', function() {
+
+    var login = function() {
+        Twitch.login( {
+            scope: ['user_read', 'channel_read']
+        });
+    }
+
+    var logout = function() {
+        Twitch.logout(function(error) {
+            console.log(error);
+        });
+    }
+
+    var getStatus = function() {
+        Twitch.getStatus(function (error, status) {
+            if (status.authenticated) {
+                console.log('Authenticated!');
+            }
+        });
+    }
+
+    return {
+         login     : login
+        ,logout    : logout
+        ,getStatus : getStatus
+    }
+
 });
